@@ -7,6 +7,13 @@ const allArticles = async (req, res) => {
   res.send(articles);
 };
 
+// Busca artigo por ID
+
+const ArticleById = async (req, res) => {
+  const articleById = await Article.findById(req.params.id);
+  res.send(articleById);
+};
+
 // adiciona um novo artigo no banco de dados
 const newArticle = async (req, res) => {
   if (!req.body) return res.status(404).send('Ocorreu algum erro');
@@ -60,6 +67,7 @@ const deleteArticle = async (req, res) => {
 
 module.exports = {
   allArticles,
+  ArticleById,
   newArticle,
   editArticle,
   deleteArticle,

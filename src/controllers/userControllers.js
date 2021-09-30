@@ -2,31 +2,30 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/UserModel');
 
-// Busca todos os artigos no banco de dados
+// Busca todos os usuáriois no banco de dados
 const allUsers = async (req, res) => {
   const users = await User.find();
   res.send(users);
 };
 
-// adiciona um novo artigo no banco de dados
+// adiciona um novo usuário no banco de dados
 const register = async (req, res) => {
   if (!req.body) return res.status(404).send('Ocorreu algum erro');
-
   try {
-    const user = await User.create({
+    const user = new User({
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password),
     });
-
-    res.send(user);
+    const savedUser = await user.save();
+    res.send(savedUser);
   } catch (error) {
     res.status(400).send(error);
     console.log(error);
   }
 };
 
-// edita artigo existente no banco de dados
+// edita um usuário existente no banco de dados
 const editUser = async (req, res) => {
   if (!req.params.id) return res.status(400).send('Ocorreu algum erro');
 
@@ -44,7 +43,7 @@ const editUser = async (req, res) => {
   }
 };
 
-// Deleta artigo existente no banco de dados
+// Deleta um usuário existente no banco de dados
 const deleteUser = async (req, res) => {
   if (!req.params.id) return res.status(400).send('Ocorreu algum erro');
   try {
@@ -58,11 +57,11 @@ const deleteUser = async (req, res) => {
 const login = async (req, res) => {
   // Check user email
   const selectedUser = await User.findOne({ email: req.body.email });
-  if (!selectedUser) return res.status(400).send('Invalid email or password');
+  if (!selectedUser) { return res.status(400).send('Usuário não encontrado.'); }
 
   // Check password
   const passwordAndUserMatch = bcrypt.compareSync(req.body.password, selectedUser.password);
-  if (!passwordAndUserMatch) return res.status(400).send('Invalid email or password');
+  if (!passwordAndUserMatch) return res.status(400).send('Email ou senha inválido');
 
   // Generate a token based on the user ID
   const token = jwt.sign({

@@ -6,7 +6,7 @@ const articleSchema = mongoose.Schema({
   body: { type: String },
   author: { type: String },
   img: { type: String },
-  createdAt: { type: Date, default: Date.now() },
+  createdAt: { type: Date, default: Date.now },
 });
 
 module.exports = mongoose.model('Article', articleSchema);
