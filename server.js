@@ -5,7 +5,7 @@ const app = express();
 
 const cors = require('cors');
 
-const whitelist = ['http://localhost:3000'];
+const whitelist = ['https://priceless-bose-d43eea.netlify.app/'];
 
 const corsOptions = {
   origin(origin, callback) {
