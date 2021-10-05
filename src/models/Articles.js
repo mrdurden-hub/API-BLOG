@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const articleSchema = mongoose.Schema({
   title: { type: String },
+  category: { type: String },
   description: { type: String },
   body: { type: String },
   author: { type: String },

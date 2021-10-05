@@ -5,7 +5,7 @@ const app = express();
 
 const cors = require('cors');
 
-const whitelist = ['https://priceless-bose-d43eea.netlify.app'];
+const whitelist = ['https://priceless-bose-d43eea.netlify.app', 'http://localhost:3000'];
 
 const corsOptions = {
   origin(origin, callback) {
@@ -48,7 +48,7 @@ app.use(routes);
 app.use(usersRoutes);
 
 app.on('connected', () => {
-  app.listen(process.env.PORT || 3000, () => {
+  app.listen(process.env.PORT || 3001, () => {
     console.log('Server running');
   });
 });

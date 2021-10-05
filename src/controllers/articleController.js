@@ -3,7 +3,7 @@ const Article = require('../models/Articles');
 
 // Busca todos os artigos no banco de dados
 const allArticles = async (req, res) => {
-  const articles = await Article.find();
+  const articles = await Article.find().sort({ createdAt: 'desc' });
   res.send(articles);
 };
 
@@ -23,6 +23,7 @@ const newArticle = async (req, res) => {
 
     const user = await Article.create({
       title: req.body.title,
+      category: req.body.category,
       description: req.body.description,
       body: req.body.body,
       author: req.body.author,
