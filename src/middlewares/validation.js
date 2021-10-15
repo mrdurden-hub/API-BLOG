@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 // Function that validates the token
 module.exports = (req, res, next) => {
-  const token = req.header('authorization-token');
+  const token = req.header('Authorization');
   if (!token) return res.status(401).send('Você não está autênticado');
 
   try {

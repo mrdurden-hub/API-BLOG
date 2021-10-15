@@ -70,9 +70,9 @@ const login = async (req, res) => {
   }, process.env.TOKEN_SECRET);
 
   // Send token
-  res.header('authorization-token', token);
+  res.header('Authorization', token);
 
-  res.send('User logged in');
+  res.send({ selectedUser, token });
 };
 
 module.exports = {
